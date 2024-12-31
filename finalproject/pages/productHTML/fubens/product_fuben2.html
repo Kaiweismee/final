@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商場頁面</title>
+    <link rel="stylesheet" href="../../../assets/css/product_style.css">
+    <style>
+        
+        /* 整体布局 */
+
+.layout {
+    display: flex; /* 使用弹性布局 */
+    justify-content: space-between; /* 左右对称排布 */
+    gap: 20px; /* 增加左右区域的间距 */
+    align-items: center; /* 顶部对齐 */
+}
+
+.popular-products {
+    display: flex; /* 使用弹性布局 */
+    justify-content: space-between; /* 子元素水平均匀分布 */
+    gap: 30px; /* 图片之间的间隙 */
+}
+
+.popular-products div {
+    flex: 1; /* 子容器均分宽度 */
+    text-align: center; /* 图片和文字居中 */
+    margin-top: 100px; /* 图片向下偏移 */
+    margin-right: 40px; /* 左侧微偏移 */
+}
+
+
+.popular-products img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 200px; /* 限制图片最大宽度 */
+    max-height: 200px;
+    margin: 0 auto 10px; /* 图片上下居中对齐 */
+    border-radius: 8px;
+    transition: transform 0.3s ease; /* 平滑过渡效果 */
+}
+
+.popular-products img:hover {
+    transform: scale(1.2); /* 鼠标悬停时放大图片 */
+}
+
+/* 評分樣式 */
+.rating {
+    margin: 20px 0;
+    display: inline-flex;
+    flex-direction: row-reverse;
+    width: 94%; /* 设置为与父容器一致 */
+    justify-content: space-evenly; /* 均匀分布星星 */
+}
+
+.rating label {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.rating input {
+    display: none;
+}
+
+/* 点亮当前和左侧的星星 */
+.rating input:checked + label,
+.rating input:checked + label ~ label {
+    color: #ffcc00;
+}
+
+/* 悬停效果 */
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #ffcc00;
+}
+
+/* 保证与评论区域宽度一致 */
+textarea {
+    width: 95%;
+    resize: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+
+button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <!-- 大標題改為圖片 -->
+        <a href="../../../index.html"><img src="../../../assets/images/title-image.svg" alt="中職商品" class="title-image"></a>
+        
+        <!-- 導航列 -->
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="dropdown">
+                    <a href="#">中信兄弟系列</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#">樂天桃猿系列</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#">統一獅系列</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#">富邦悍將系列</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#">味全龍系列</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#">台鋼雄鷹系列</a>
+                </li>
+            </ul>
+            <!-- 會員和購物車 -->
+            <div class="nav-icons">
+                <a href="../../member.html" class="icon">會員</a>
+                <a href="../../product.html" class="icon">購物車</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>商品展示</h2>
+            <div class="product-display">
+                <div>
+                    <img src="../../../assets/images/products/fubon/fuben_image2.jpg" alt="產品圖片">
+                    <p>中信兄弟球衣</p>
+                </div>
+                <div>
+                    <h3>產品介紹</h3>
+                    <p>中信兄弟經典的黃色作為配色，並且加上代表隊名Brother的縮寫B，簡單又不失流行的設計</p>
+        
+                    <!-- 尺寸選擇 -->
+                    <label for="size">選擇尺寸：</label>
+                    <select id="size" class="size-select">
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+        
+                    <!-- 價額顯示 -->
+                    <p>價額：<span id="price" class="price">1500</span> 元</p>
+        
+                    <!-- 數量選取 -->
+                    <label for="quantity">數量：</label>
+                    <input type="number" id="quantity" class="quantity-input" value="1" min="1">
+        
+                    <!-- 加入購物車按鈕 -->
+                    <button id="add-to-cart-btn" class="add-to-cart-btn">加入購物車</button>
+                    <p id="cart-status" class="cart-status" style="display: none; color: green;">已加入購物車</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>熱門商品與評價</h2>
+            <div class="layout">
+                <div class="popular-products">
+                    <h3>熱門商品</h3>
+                    <div>
+                        <a href="../lions/product_lion2.html"><img src="../../../assets/images/products/lion/lion_image2.jpg" alt="熱門產品 1"></a>
+                        <p>熱門產品 1</p>
+                    </div>
+                    <div>
+                        <a href="../rakutens/product_rakuten2.html"><img src="../../../assets/images/products/rakuten/rakuten_image2.jpg" alt="熱門產品 2"></a>
+                        <p>熱門產品 2</p>
+                    </div>
+                </div>
+
+                <div class="rating-section">
+                    <h3>給予評價</h3>
+                    <form id="rating-form">
+                        <fieldset class="rating">
+                            <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">&#9733;</label>
+                            <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">&#9733;</label>
+                            <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">&#9733;</label>
+                            <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">&#9733;</label>
+                            <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">&#9733;</label>
+                        </fieldset>
+                        <textarea name="review" rows="4" placeholder="撰寫您的評價..."></textarea>
+                        <button type="submit">提交評價</button>
+                    </form>
+                    <p id="rating-feedback" style="display: none;"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- 顧客回饋 -->
+            <div class="feedback-section">
+                <h3>顧客回饋</h3>
+                <form action="#" method="POST">
+                    <textarea name="feedback" rows="4" placeholder="請留下您的建議或意見"></textarea>
+                    <button type="submit">提交回饋</button>
+                </form>
+            </div>
+    
+            <!-- 聯絡方式 -->
+            <div class="contact-section">
+                <h3>聯絡方式</h3>
+                <p>地址：中原資管樓</p>
+                <p>電話：123 456 789</p>
+                <p>電子郵件：cyim@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('rating-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get the selected rating
+            let selectedRating = document.querySelector('input[name="rating"]:checked');
+            let reviewText = document.querySelector('textarea[name="review"]').value.trim(); // Get the review text
+            
+            // Display feedback
+            if (selectedRating) {
+                let ratingValue = selectedRating.value;
+                let feedbackMessage = `您已給予 ${ratingValue} 顆星的評價！`;
+                
+                // Show rating feedback
+                document.getElementById('rating-feedback').textContent = feedbackMessage;
+                
+                // Optionally show the review content
+                if (reviewText) {
+                    document.getElementById('rating-feedback').textContent += ` 內容：${reviewText}`;
+                }
+                
+                document.getElementById('rating-feedback').style.display = 'block';
+            } else {
+                alert("請選擇評價星數！");
+            }
+        });
+    </script>
+
+    <script src="product_script.js"></script>
+
+</body>
+</html>
